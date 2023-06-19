@@ -1,9 +1,8 @@
 const { PDFDocument, StandardFonts, rgb } = require('pdf-lib');
-
-async function addAnnotationToPDF() {
-  //lecture du fichier 
-  const fs = require('fs');
-  const pdfBytes = fs.readFileSync('../PDF_pool/GNU_APGL.pdf');
+const fs = require('fs');
+async function addAnnotationToPDF(fileName) {
+  //lecture du fichier
+  const pdfBytes = fs.readFileSync(fileName);
 
   const pdfDoc = await PDFDocument.load(pdfBytes);
 
@@ -26,11 +25,13 @@ async function addAnnotationToPDF() {
   });
   // Convertir le document PDF en tableau de bytes
   const modifiedPdfBytes = await pdfDoc.save();
-  fs.writeFileSync('../PDF_pool/GNU_APGL_annotated.pdf', modifiedPdfBytes);
-  console.log('Le fichier PDF modifié a été enregistré.');
+
+  fs.writeFileSync(fileName, modifiedPdfBytes);
+  console.log('Le fichier PDF d\'origine a été écrasé avec les modifications.');
+
   
 }
 
-addAnnotationToPDF().catch((error) => {
+addAnnotationToPDF('../PDF_pool/GNU_APGL.pdf').catch((error) => {
   console.error('Une erreur est survenue :', error);
 });

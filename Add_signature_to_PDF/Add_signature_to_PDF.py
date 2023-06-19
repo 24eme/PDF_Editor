@@ -11,7 +11,7 @@ def add_image():
 
     in_pdf_file = '../PDF_pool/signature.pdf'
     out_pdf_file = '../PDF_pool/with_image.pdf'
-    img_file = '../images/img.png'
+    img_file = '../Images_pool/img.png'
 
     packet = io.BytesIO()
     can = canvas.Canvas(packet)
