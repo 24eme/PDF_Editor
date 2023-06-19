@@ -26,8 +26,9 @@ async function addAnnotationToPDF() {
   });
   // Convertir le document PDF en tableau de bytes
   const modifiedPdfBytes = await pdfDoc.save();
-  fs.writeFileSync('../PDF_pool/GNU_APGL_annotated.pdf', modifiedPdfBytes);
-  console.log('Le fichier PDF modifié a été enregistré.');
+  fs.writeFileSync('../PDF_pool/GNU_APGL.pdf', modifiedPdfBytes);
+  console.log('Le fichier PDF d\'origine a été écrasé avec les modifications.');
+
   
 }
 
