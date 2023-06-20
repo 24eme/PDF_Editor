@@ -19,8 +19,6 @@ def add_image():
     y_start = 350
     can.drawImage(img_file, x_start, y_start, width=120, preserveAspectRatio=True, mask='auto')
     can.showPage()
-    can.showPage()
-    can.showPage()
     can.save()
 
     packet.seek(0)
