@@ -67,7 +67,6 @@ class LinkExtractor:
 if __name__ == "__main__":
     # replace it with name of the pdf file
     #path = '../PDF_pool/mail_example.pdf'
-    #
     path = '../PDF_pool/GetPDF.pdf'
     linkExtractor = LinkExtractor(path)
     print("hidden link : ", linkExtractor.extract_hidden_links())
