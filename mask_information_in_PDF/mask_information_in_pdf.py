@@ -1,4 +1,5 @@
 # imports
+import PyPDF2
 import fitz
 import re
 
@@ -22,7 +23,7 @@ class Redactor:
     def __init__(self, path):
         self.path = path
 
-    def redaction(self):
+    def email_redaction(self):
 
         """ main redactor code """
 
@@ -33,7 +34,6 @@ class Redactor:
 
             page.wrap_contents()
 
-            # getting the rect boxes which consists the matching email regex
             sensitive = self.get_sensitive_data(page.get_text("text")
                                                 .split('\n'))
             for data in sensitive:
@@ -44,13 +44,31 @@ class Redactor:
 
             # applying the redaction
             page.apply_redactions()
-
-        # saving it to a new pdf
         doc.save('../PDF_pool/redacted_PDF_From_Image.pdf')
         print("Successfully redacted")
+
+    def redact_pdf(self, output_path, redaction_areas):
+        pdf = fitz.open(self.path)
+
+        # Iterate through each page of the PDF
+        for page_num in range(pdf.page_count):
+            page = pdf[page_num]
+            for area in redaction_areas:
+                x, y, width, height = area
+                redaction_rect = fitz.Rect(x, y, x + width, y + height)
+                page.add_redact_annot(redaction_rect, fill=(1, 1, 1))
+            page.apply_redactions()
+        pdf.save(output_path)
+        pdf.close()
+
 
 if __name__ == "__main__":
     # replace it with name of the pdf file
     path = '../PDF_pool/mail_example.pdf'
     redactor = Redactor(path)
-    redactor.redaction()
+    redactor.email_redaction()
+    path = '../PDF_pool/chapitre2.pdf'
+    out = '../PDF_pool/pdf_Redacted.pdf'
+    redaction_areas = [(100, 200, 50, 50)]
+    redactor = Redactor(path)
+    redactor.redact_pdf(out, redaction_areas)
