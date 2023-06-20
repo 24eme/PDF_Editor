@@ -76,10 +76,5 @@ if __name__ == "__main__":
     linkExtractor = LinkExtractor(path)
     print("hidden link : ", linkExtractor.extract_hidden_links())
     print("link", linkExtractor.extract_href_links())
-    #print(linkExtractor.extract_image_links())
-    # Exemple d'utilisation
-    #images =  linkExtractor.extraire_images_pdf()
-    #print("image" ,images)
-    #liens_images = linkExtractor.recuperer_liens_images(images)
-   # print(liens_images)
+
 
