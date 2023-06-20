@@ -12,7 +12,7 @@ def draw_shapes():
     c.setFillColorRGB(1, 1, 1)
     c.rect(485, 9, 100, 40, stroke=1, fill=1)
     #c.ellipse(10, 680, 100, 630, stroke=1, fill=1)
-   # c.wedge(10, 600, 100, 550, 45, 90, stroke=1, fill=0)
+    #c.wedge(10, 600, 100, 550, 45, 90, stroke=1, fill=0)
     #c.circle(300, 600, 50)
     c.showPage()
     c.save()
