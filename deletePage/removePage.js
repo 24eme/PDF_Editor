@@ -1,4 +1,4 @@
-const { PDFDocument, StandardFonts, rgb } = require('pdf-lib');
+const { PDFDocument } = require('pdf-lib');
 const fs = require('fs');
 
 async function removePageFromPDF(fileName,pageIndexToRemove) {
@@ -26,6 +26,6 @@ async function removePageFromPDF(fileName,pageIndexToRemove) {
 }
 
 //test de suppresion de la 3eme page du fichier
-const pageIndexToRemove = 1; 
+const pageIndexToRemove = 2; 
 
 removePageFromPDF('../PDF_pool/GNU_APGL.pdf',pageIndexToRemove);
