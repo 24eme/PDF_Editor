@@ -27,7 +27,7 @@ def unlock_pdf_file(input_path, password):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) < 3:
+    if len(sys.argv) != 3:
         print(
             "Veuillez spécifier les noms du fichier d'entrée PDF et du fichier de sortie. Utilisation : python3 "
             "pdf_unlocker.py [input file] [password]")
