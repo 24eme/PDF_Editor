@@ -9,7 +9,7 @@ def extract_text_to_file(input_path, output_path):
         output_file.write(text)
 
     output_file.close()
-    print("Extraction terminée. Le texte a été enregistré dans '{output_path}'.")
+    print("Extraction terminée.")
 
 
 if __name__ == '__main__':
