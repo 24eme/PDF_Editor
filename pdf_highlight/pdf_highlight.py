@@ -2,7 +2,7 @@ import fitz
 # opening the pdf file  
 my_pdf = fitz.open("sample.pdf")      
 # input text to be highlighted  
-my_text = "demonstration"    
+my_text = "and"    
 # iterating through pages for highlighting the input phrase  
 for n_page in my_pdf:  
     matchWords = n_page.search_for(my_text)      
