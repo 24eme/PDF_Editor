@@ -17,6 +17,6 @@ async function removeFormFields(fileName, fieldNames) {
   fs.writeFileSync(fileName, modifiedPdfBytes);
 }
 
-const fieldNames = ['name', 'agree']
+const fieldNames = ['Feat+Traits', 'CharacterName 2','Treasure']
 
-removeFormFields('../PDF_pool/form.pdf', fieldNames);
+removeFormFields('../PDF_pool/fill_form.pdf', fieldNames);
