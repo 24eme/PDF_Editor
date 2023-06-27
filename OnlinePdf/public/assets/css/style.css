@@ -2067,3 +2067,55 @@ input[type="checkbox"]:checked ~ .modal-background {
   .delete:hover{
     background-color:#d88e8b;
   }
+
+  /*css for comparePDFs page*/
+  #app {
+    font-size: 25px;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.popup {
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    width: 400px;
+    height: 150px;
+    /*padding: 20px;*/
+    border: 1px solid #000000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.popup-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.popup-content {
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+#compareDiv{
+    margin-top: 20px;
+}
+
+#compareButton{
+    background-color: saddlebrown; 
+    color: white; padding: 10px 20px; 
+    border: none; border-radius: 5px; 
+    margin-top: 40px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#file-input{
+    font-size: 25px;
+}
