@@ -1,5 +1,5 @@
 // Spécifier l'emplacement du script du worker de PDF.js
-pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc = "../public/assets/pdfWorker_lib/pdf.worker.min.js";
 
 // Chargement des fichiers PDF avec la bibliothèque PDF.js
 function loadPdf(file) {
