@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Compresser un fichier</title>
+    <script src="../public/assets/vuejs/vue.min.js"></script>
+    <script src="../public/assets/js/compressFile.js"></script>
+    <link rel="stylesheet" href="../public/assets/css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <h1>Compresser un fichier</h1>
+        <p>Sélectionnez un fichier à compresser et choisissez un type de compression.</p>
+
+        <input type="file" id="file-input" @change="handleFileInput" />
+
+        <h2>Choisissez un type de compression :</h2>
+        <input type="radio" id="compressionExtreme" name="compression" value="Extreme" v-model="compressionType">
+        <label for="compressionExtreme">Compression Extrême</label><br>
+
+        <input type="radio" id="compressionRecommandee" name="compression" value="Recommandée"
+            v-model="compressionType">
+        <label for="compressionRecommandee">Compression Recommandée</label><br>
+
+        <input type="radio" id="moinsCompression" name="compression" value="Moins" v-model="compressionType">
+        <label for="moinsCompression">Moins de Compression</label><br>
+
+        <button @click="compressFile">Compresser le fichier</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                fileContent: '',
+                compressionType: ''
+            },
+            methods: {
+                handleFileInput(event) {
+                    const files = event.target.files;
+                    if (files.length > 0) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.fileContent = e.target.result;
+                        };
+                        reader.readAsText(files[0]);
+                    }
+                },
+                compressFile
+            }
+        });
+    </script>
+</body>
+
+</html>

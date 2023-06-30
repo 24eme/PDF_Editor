@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Remplir un formulaire PDF</title>
+    <script src="../public/assets/vuejs/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <link rel="stylesheet" href="../public/assets/css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <h1>Remplir un formulaire PDF</h1>
+        <p>Sélectionnez un formulaire PDF à remplir :</p>
+
+        <input type="file" id="file-input" @change="handleFileInput" />
+
+        <div v-if="pdfLoaded">
+            <h2>Remplissez le formulaire :</h2>
+
+            <div v-for="(field, index) in formFields" :key="index">
+                <label>{{ field.label }}</label>
+                <input v-if="field.type === 'text'" type="text" v-model="field.value">
+                <textarea v-if="field.type === 'textarea'" v-model="field.value"></textarea>
+            </div>
+
+            <button @click="downloadFilledForm">Télécharger le formulaire rempli</button>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                pdfLoaded: false,
+                pdfDocument: null,
+                formFields: []
+            },
+            methods: {
+                handleFileInput(event) {
+                    const files = event.target.files;
+                    if (files.length > 0) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const fileData = new Uint8Array(e.target.result);
+                            this.loadPDF(fileData);
+                        };
+                        reader.readAsArrayBuffer(files[0]);
+                    }
+                },
+                async loadPDF(fileData) {
+                    try {
+                        this.pdfDocument = await PDFLib.PDFDocument.load(fileData);
+                        this.populateFormFields();
+                        this.pdfLoaded = true;
+                    } catch (error) {
+                        console.error('Une erreur s\'est produite lors du chargement du PDF :', error);
+                    }
+                },
+                populateFormFields() {
+                    const formFields = this.pdfDocument.getForm().getFields();
+                    this.formFields = formFields.map((field) => {
+                        return {
+                            label: field.getName(),
+                            type: field.constructor.name === 'PDFTextField' ? 'text' : 'textarea',
+                            value: ''
+                        };
+                    });
+                },
+                async downloadFilledForm() {
+                    try {
+                        const pdfBytes = await this.fillFormAndGetBytes();
+                        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                        const downloadLink = document.createElement('a');
+                        downloadLink.href = URL.createObjectURL(blob);
+                        downloadLink.download = 'formulaire_rempli.pdf';
+                        downloadLink.click();
+                    } catch (error) {
+                        console.error('Une erreur s\'est produite lors de la génération du formulaire rempli :', error);
+                    }
+                },
+                async fillFormAndGetBytes() {
+                    const form = this.pdfDocument.getForm();
+                    this.formFields.forEach((field) => {
+                        const formField = form.getField(field.label);
+                        if (formField) {
+                            if (formField.constructor.name === 'PDFTextField') {
+                                formField.setText(field.value);
+                            } else if (formField.constructor.name === 'PDFTextArea') {
+                                const lines = field.value.split('\n');
+                                formField.setTextLines(lines);
+                            }
+                        }
+                    });
+                    return await this.pdfDocument.save();
+                }
+
+
+            }
+        });
+    </script>
+</body>
+
+</html>
